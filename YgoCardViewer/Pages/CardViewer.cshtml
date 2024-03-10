@@ -1,0 +1,71 @@
+@page
+@model CardViewerModel
+@{
+    ViewData["Title"] = "CardViewer";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="inner col-md-6">
+            @if (Model.Card.CardImages != null && Model.Card.CardImages.Any()) 
+            {
+                <img src="@Model.Card.CardImages.FirstOrDefault().ImageUrl" class="img-fluid">
+
+            }
+        </div>
+    </div>
+    <div class="col-md-6">
+        @if (Model.Card.CardPrices != null && Model.Card.CardPrices.Any()) 
+        {
+            <h2>Precios</h2>
+            <table class="table table-light">
+                <thead>
+                    <tr>
+                        <th>Cardmarket Price</th>
+                        <th>Tcgplayer Price</th>
+                        <th>Ebay Price</th>
+                        <th>Amazon Price</th>
+                        <th>Coolstuffinc Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var price in Model.Card.CardPrices) {
+                        <tr>
+                            <td>@price.CardmarketPrice</td>
+                            <td>@price.TcgplayerPrice</td>
+                            <td>@price.EbayPrice</td>
+                            <td>@price.AmazonPrice</td>
+                            <td>@price.CoolstuffincPrice</td>
+                        </tr>
+                    }
+                </tbody>
+                
+            </table>
+        }
+
+        @if (Model.Card.CardSets != null && Model.Card.CardSets.Any()) 
+        {
+            <h2>Sets</h2>
+            <table class="table table-light">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Codigo</th>
+                        <th>Rareza</th>
+                        <th>Precio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var set in Model.Card.CardSets) {
+                        <tr>
+                            <td>@set.SetName</td>
+                            <td>@set.SetCode</td>
+                            <td>@set.SetRarity</td>
+                            <td>@set.SetPrice</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>

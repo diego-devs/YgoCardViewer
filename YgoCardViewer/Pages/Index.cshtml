@@ -1,0 +1,69 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+    <form method="GET">
+        <div class="form-group">
+            <div class="input-group">
+                <input type="search" class="form-control search-input" asp-for="Search"/>
+                <button class="btn btn-dark">Buscar</button>
+            </div>
+        </div>
+    </form>
+
+    @if (Model.Cards != null) 
+    {
+        <table class="table table-dark justify-content-between">
+            <thead>
+                <tr>
+                    <th>Carta</th>
+                    <th>Nombre</th>
+                    <th>Atributo</th>
+                    <th>Tipo</th>
+                    <th>Descripci&oacute;n</th>
+                    <th>Precios</th>
+                    <th>Detalles</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var card in Model.Cards) 
+                {
+                    <tr>
+                        <td>
+                            <div class="inner">
+                                <a asp-page="CardViewer" asp-route-id="@card.Id">
+                                    <img src="@card.CardImages.FirstOrDefault().ImageUrlSmall">
+                                </a>
+                            </div>
+                        </td>
+                        <td>@card.Name</td>
+                        <td>@card.Attribute</td>
+                        <td>@card.Type</td>
+                        <td>@card.Description</td>
+
+                        <td>
+                             @{
+                                try
+                                {
+                                    <p>@card.CardPrices.FirstOrDefault().TcgplayerPrice.ToString()</p>
+                                }
+                                catch (Exception e)
+                                {
+                                    <p>precios</p>
+                                }
+                            }
+                        </td>
+                        <td>
+                            <a class="btn btn-link" asp-page="CardViewer" asp-route-id="@card.Id">
+                                Ver detalles...
+                            </a>
+                        </td>
+                        
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    }
